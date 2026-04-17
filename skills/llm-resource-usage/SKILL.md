@@ -76,7 +76,7 @@ Run the renderer to produce a standalone HTML file that works in any browser:
 python scripts/run.py [DAYS] | python scripts/render.py > report.html
 ```
 
-Then present `report.html` to the user with the `present_files` tool so they can download and open it. The file includes:
+Then tell the user the path to `report.html` so they can open it in a browser. If the `present_files` tool is available (claude.ai only), also use it to attach the file for download. The file includes:
 - Stat cards (tokens, cost, energy, CO₂)
 - Horizontal model breakdown bars with energy per model
 - Datacenter location card + cache efficiency

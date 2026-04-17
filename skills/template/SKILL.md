@@ -11,7 +11,7 @@ metadata:
   version: 1.0.0
   homepage: https://github.com/panno-ai/skills/tree/main/skills/skill-name
   tags: tag1 tag2 tag3
-  openclaw.requires.bins: python3
+  openclaw.requires.bins: ""  # binaries required at runtime, e.g. "python3" or "curl python3"
   openclaw.emoji: "🔧"
   openclaw.homepage: https://github.com/panno-ai/skills/tree/main/skills/skill-name
 ---

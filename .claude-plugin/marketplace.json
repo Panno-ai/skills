@@ -10,8 +10,21 @@
       "name": "llm-resource-usage",
       "description": "Analyze your LLM/AI usage across all local coding agents and generate an environmental impact infographic and narrative report.",
       "category": "productivity",
+      "version": "1.0.0",
+      "author": "panno-ai",
+      "keywords": ["analytics", "llm-usage", "environment", "carbon", "reporting", "tokens", "cost"],
       "source": "./skills/llm-resource-usage",
       "homepage": "https://github.com/panno-ai/skills/tree/main/skills/llm-resource-usage"
+    },
+    {
+      "name": "panno-canvas",
+      "description": "Interact with a Panno infinite canvas via REST API — create, read, and edit shapes using curl.",
+      "category": "productivity",
+      "version": "0.1.0",
+      "author": "panno-ai",
+      "keywords": ["canvas", "tldraw", "rest-api", "shapes", "visualization", "curl", "panno"],
+      "source": "./skills/panno-canvas",
+      "homepage": "https://github.com/panno-ai/skills/tree/main/skills/panno-canvas"
     }
   ]
 }

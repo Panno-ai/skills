@@ -25,6 +25,7 @@ Claude Code will automatically detect and load installed skills at session start
 | Skill | Description |
 |---|---|
 | [llm-resource-usage](skills/llm-resource-usage/) | Analyze your LLM usage across all local AI coding agents and generate an environmental impact report with infographic. |
+| [panno-canvas](skills/panno-canvas/) | Interact with a Panno infinite canvas via REST API — create, read, and edit shapes using curl. |
 
 ---
 
