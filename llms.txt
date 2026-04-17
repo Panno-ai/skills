@@ -25,6 +25,19 @@ HTML infographic and narrative report.
 - Tags: analytics, llm-usage, environment, carbon, reporting, tokens, cost
 - Homepage: https://github.com/panno-ai/skills/tree/main/skills/llm-resource-usage
 
+### panno-canvas
+
+Interact with a Panno infinite canvas via REST API using curl — create, read,
+update, and delete shapes (markdown, geo, notes, file editors). Handles
+authentication (guest session, API key, OAuth), layout, comment threads, and
+the diff/patch workflow for proposing content changes.
+
+- Path: skills/panno-canvas/
+- SKILL.md: skills/panno-canvas/SKILL.md
+- Requires: curl
+- Tags: canvas, tldraw, rest-api, shapes, visualization, curl, panno
+- Homepage: https://github.com/panno-ai/skills/tree/main/skills/panno-canvas
+
 ## Skill Format
 
 Each skill follows the agentskills.io open standard:

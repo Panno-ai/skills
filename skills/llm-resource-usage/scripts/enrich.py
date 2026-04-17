@@ -180,10 +180,7 @@ def calc_env(input_tokens, output_tokens, model, provider="unknown", inference_g
     co2_g = total_wh * carbon_intensity / 1000  # kWh = Wh/1000
 
     # Water (direct cooling: WUE = liters per kWh)
-    water_direct_ml = total_wh * wue / 1000  # WUE is ml/kWh, so /1000 to convert Wh→kWh... 
-    # Actually wue_ml_per_kwh means ml of water per kWh
-    # total_wh / 1000 = kWh; * wue_ml_per_kwh = ml
-    water_direct_ml = (total_wh / 1000) * wue
+    water_direct_ml = (total_wh / 1000) * wue  # wue is ml/kWh; total_wh/1000 converts Wh→kWh
 
     return {
         "datacenter": dc,
