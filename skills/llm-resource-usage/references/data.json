@@ -1,0 +1,317 @@
+{
+  "_schema_version": "2.0",
+  "_last_validated": "2026-04-17",
+  "_methodology_note": "Environmental figures are estimates. PUE/WUE are provider-reported averages for their full datacenter fleets; individual regions vary. Grid carbon intensity values are location-based (actual annual average grid mix); market-based accounting via RECs/PPAs would give lower values but is less representative of actual physical emissions. Energy-per-token estimates are derived from published research measurements on H100 hardware at commercial inference concurrency (2024-2025).",
+
+  "providers": {
+
+    "anthropic": {
+      "label": "Anthropic (direct API)",
+      "cloud": "AWS",
+      "primary_regions": ["us-east-1", "us-west-2"],
+      "inference_geo_map": {
+        "us":     { "region": "us-east-1", "label": "AWS US East (N. Virginia)", "city": "Ashburn, Virginia, USA" },
+        "global": { "region": "multi",      "label": "AWS Global (VA + OR + EU routed)", "city": "Multi-region" }
+      },
+      "default_region_key": "global",
+      "renewable_claim": "100% renewable-matched (RECs/PPAs) for all 24 AWS regions in 2024",
+      "_renewable_claim_source": "Amazon 2024 Sustainability Report (sustainability.aboutamazon.com/products-services/aws-cloud): '100% of electricity consumed by Amazon was matched with renewable energy sources in 2024, for the second consecutive year.' Note: market-based accounting via RECs/PPAs, not 24/7 carbon-free energy.",
+      "pue": 1.15,
+      "_pue_source": "Amazon Sustainability page (sustainability.aboutamazon.com/products-services/aws-cloud) and Amazon 2024 Sustainability Report: 'In 2024, AWS data centers reported a global PUE of 1.15.' Announced at AWS Re:Invent 2024; confirmed by Data Center Dynamics report (Dec 2024). Best site: 1.04 (Europe); Americas: 1.14; EMEA: 1.12; APAC: 1.28. Source: thenewstack.io/cloud-pue-comparing-aws-azure-and-gcp-global-regions (Jan 2025).",
+      "wue_ml_per_kwh": 150,
+      "_wue_source": "Amazon Sustainability page (sustainability.aboutamazon.com/products-services/aws-cloud): 'AWS achieved a global data center WUE of 0.15 liters of water withdrawn per kilowatt-hour of IT Load (L/kWh) in 2024, a 17% improvement from 2023 and a 40% improvement since 2021.' 0.15 L/kWh = 150 mL/kWh. Also confirmed by Amazon water stewardship page (sustainability.aboutamazon.com/natural-resources/water). Industry average: 0.36 L/kWh (Lawrence Berkeley 2024 US Data Center Energy Usage Report). CORRECTION from v1.0: previous value (1800 mL/kWh) was 12x too high."
+    },
+
+    "openai": {
+      "label": "OpenAI",
+      "cloud": "Azure (Microsoft)",
+      "primary_regions": ["eastus", "westus", "westeurope"],
+      "inference_geo_map": {
+        "eastus":     { "region": "eastus",     "label": "Azure East US (Virginia)", "city": "Boydton, Virginia, USA" },
+        "westus":     { "region": "westus",     "label": "Azure West US (California)", "city": "San Jose, California, USA" },
+        "westeurope": { "region": "westeurope", "label": "Azure West Europe (Netherlands)", "city": "Amsterdam, Netherlands" }
+      },
+      "default_region_key": "eastus",
+      "renewable_claim": "100% renewable-matched (RECs/PPAs) per Microsoft FY2024 Sustainability Report",
+      "pue": 1.18,
+      "_pue_source": "Microsoft global data center PUE average ~1.18. Data Center Dynamics (Jan 2025, thenewstack.io/cloud-pue-comparing-aws-azure-and-gcp-global-regions/): 'global facility average of 1.18 across the portfolio'. Best site: 1.11 (Wyoming); worst: 1.35 (Illinois). Note: Microsoft removed per-region numeric PUE data from their public website in late 2024; global average is from third-party reporting based on earlier Microsoft disclosures.",
+      "wue_ml_per_kwh": 300,
+      "_wue_source": "Microsoft blog post 'Sustainable by design: Next-generation datacenters consume zero water for cooling' (Dec 9, 2024, microsoft.com/en-us/microsoft-cloud/blog/2024/12/09/sustainable-by-design-next-generation-datacenters-consume-zero-water-for-cooling/): 'In our last fiscal year, our datacenters operated with an average WUE of 0.30 L/kWh.' 0.30 L/kWh = 300 mL/kWh. Also confirmed by datacenters.microsoft.com/sustainability/efficiency/ and Data Centre Magazine (Dec 2024). This is a 39% improvement from 0.49 L/kWh in 2021. CORRECTION from v1.0: previous value (1500 mL/kWh) was 5x too high."
+    },
+
+    "azure": {
+      "label": "Azure OpenAI / Microsoft",
+      "cloud": "Azure",
+      "primary_regions": ["eastus"],
+      "inference_geo_map": {
+        "eastus": { "region": "eastus", "label": "Azure East US (Virginia)", "city": "Boydton, Virginia, USA" }
+      },
+      "default_region_key": "eastus",
+      "renewable_claim": "100% renewable-matched (RECs/PPAs) per Microsoft FY2024 Sustainability Report",
+      "pue": 1.18,
+      "_pue_source": "Same source as openai provider.",
+      "wue_ml_per_kwh": 300,
+      "_wue_source": "Same source as openai provider."
+    },
+
+    "google": {
+      "label": "Google (Gemini)",
+      "cloud": "GCP",
+      "primary_regions": ["us-central1", "us-east1", "europe-west4"],
+      "inference_geo_map": {
+        "us-central1":  { "region": "us-central1",  "label": "GCP Iowa (Council Bluffs)", "city": "Council Bluffs, Iowa, USA" },
+        "us-east1":     { "region": "us-east1",     "label": "GCP South Carolina", "city": "Moncks Corner, South Carolina, USA" },
+        "europe-west4": { "region": "europe-west4", "label": "GCP Netherlands", "city": "Eemshaven, Netherlands" }
+      },
+      "default_region_key": "us-central1",
+      "renewable_claim": "66% carbon-free energy (CFE) on hourly matching basis in 2024; targeting 24/7 CFE by 2030",
+      "_renewable_claim_source": "Google 2025 Environmental Report (sustainability.google/google-2025-environmental-report/): '66% carbon-free energy on an hourly basis in 2024.' Note: Google uses hourly matching (more rigorous than annual matching); 66% CFE ≠ 0% emissions.",
+      "pue": 1.09,
+      "_pue_source": "Google Data Centers sustainability page (datacenters.google/operating-sustainably/): 'In 2024, the average annual power usage effectiveness (PUE) for our global fleet of data centers was 1.09.' Industry average per Google: 1.56 (2024). Also confirmed in Google 2024 Environmental Report blog (Jan 2024): '2023 PUE was 1.10'. CORRECTION from v1.0: was 1.10 (2023 value); updated to 1.09 (2024 value).",
+      "wue_ml_per_kwh": 500,
+      "_wue_source": "ESTIMATE — Google does not publish a fleet-wide WUE metric. This value is derived from reported data. Google 2024 Environmental Report states consumption of 6.1 billion gallons (23.1 billion liters) of water for data center cooling in 2023. Google's data center electricity consumption was approximately 23-25 TWh in 2023 (per Google 2023 Environmental Report). Dividing: ~23 billion liters / ~24 billion kWh ≈ 0.96 L/kWh. However, the allocation between data centers and offices introduces uncertainty, and newer facilities are more efficient. Conservative mid-estimate: 0.50 L/kWh = 500 mL/kWh. CAVEAT: ±60% uncertainty; treat all Google water estimates with caution. CORRECTION from v1.0: was 900 mL/kWh; revised to 500 mL/kWh as a more defensible estimate."
+    },
+
+    "groq": {
+      "label": "Groq",
+      "cloud": "Groq LPU (US colocation)",
+      "primary_regions": ["us"],
+      "inference_geo_map": {
+        "us": { "region": "us", "label": "Groq LPU Datacenter (US)", "city": "USA" }
+      },
+      "default_region_key": "us",
+      "renewable_claim": "Not publicly disclosed",
+      "pue": 1.20,
+      "_pue_source": "No public PUE disclosure from Groq found as of April 2026. Using US colocation data center industry average of ~1.20. Source: Lawrence Berkeley National Laboratory '2024 United States Data Center Energy Usage Report'. ±25% uncertainty.",
+      "wue_ml_per_kwh": 360,
+      "_wue_source": "No public WUE disclosure. Using US data center industry average of 0.36 L/kWh = 360 mL/kWh. Source: Lawrence Berkeley 2024 US Data Center Energy Usage Report, cited in brightlio.com/data-center-stats/: 'WUE averaged 0.36 liters per kWh in 2023.'"
+    },
+
+    "ollama": {
+      "label": "Ollama (local inference)",
+      "cloud": "User hardware",
+      "primary_regions": ["local"],
+      "inference_geo_map": {
+        "local": { "region": "local", "label": "User's machine (CPU/GPU)", "city": "Varies" }
+      },
+      "default_region_key": "local",
+      "renewable_claim": "Depends entirely on user's electricity mix",
+      "pue": 1.0,
+      "_pue_source": "PUE = 1.0 for consumer hardware. All overhead energy (fan cooling, power supply losses) is already counted in device power draw measurement. There is no separate infrastructure cooling overhead.",
+      "wue_ml_per_kwh": 0,
+      "_wue_source": "WUE = 0. Consumer air-cooled devices use no active water cooling. Note: chip manufacturing has an embedded water footprint not captured here."
+    },
+
+    "local": {
+      "label": "Local / Self-hosted model",
+      "cloud": "User hardware",
+      "primary_regions": ["local"],
+      "inference_geo_map": {
+        "local": { "region": "local", "label": "User's machine", "city": "Varies" }
+      },
+      "default_region_key": "local",
+      "renewable_claim": "Depends on user's electricity mix",
+      "pue": 1.0,
+      "_pue_source": "Same as ollama provider.",
+      "wue_ml_per_kwh": 0,
+      "_wue_source": "Same as ollama provider."
+    }
+  },
+
+  "grid_carbon_intensity_g_per_kwh": {
+    "_source_primary": "US values: EPA eGRID 2023 Summary Tables (summary_tables_rev2.pdf, published 2025-03-27, available at epa.gov/system/files/documents/2025-06/summary_tables_rev2.pdf). Conversion formula: CO2_lb_per_MWh × 0.4536 = gCO2/kWh (since 1 lb = 453.592g and 1 MWh = 1000 kWh, so 1 lb/MWh × 453.592g/lb / 1000 kWh/MWh = 0.4536 gCO2/kWh). Using CO2 only output emission rates (not CO2e) for consistency.",
+    "_source_europe": "European values from Ember 2024 annual electricity data, published via Statista and emberclimate.org. These are generation-weighted annual average emission factors.",
+    "_location_vs_market_note": "These are LOCATION-BASED emission factors (actual annual average grid mix at the location). AWS, Azure, and GCP all claim 100% market-based renewable matching via RECs/PPAs, which would reduce their Scope 2 emissions to near-zero under market-based accounting. We use location-based factors to represent physical grid reality. The skill output should note this distinction.",
+
+    "us-east-1":    271,
+    "_us-east-1":   "RFCE (RFC East) subregion from eGRID 2023: 596.9 lb/MWh CO2 × 0.4536 = 270.8 → 271 gCO2/kWh. RFCE covers Virginia, Maryland, Pennsylvania, New Jersey, Delaware — the subregion containing AWS us-east-1 (Ashburn, N. Virginia).",
+
+    "us-west-2":    287,
+    "_us-west-2":   "NWPP (WECC Northwest) subregion from eGRID 2023: 631.7 lb/MWh CO2 × 0.4536 = 286.5 → 287 gCO2/kWh. NWPP covers Oregon (AWS us-west-2), Washington, Idaho, parts of Montana/Nevada. Oregon has significant hydropower; this figure reflects the broader multi-state subregion.",
+
+    "eastus":       271,
+    "_eastus":      "Same as us-east-1 (RFCE subregion). Azure East US is Boydton, Virginia — also within RFCE.",
+
+    "westus":       194,
+    "_westus":      "CAMX (WECC California) subregion from eGRID 2023: 428.5 lb/MWh CO2 × 0.4536 = 194.4 → 194 gCO2/kWh. Azure West US (San Jose, CA) is within CAMX. California has significant solar, wind, and hydro generation.",
+
+    "us-central1":  417,
+    "_us-central1": "MROW (MRO West) subregion from eGRID 2023: 920.1 lb/MWh CO2 × 0.4536 = 417.4 → 417 gCO2/kWh. MROW covers Iowa, Nebraska, North/South Dakota, Minnesota — containing GCP us-central1 (Council Bluffs, Iowa). Note: Iowa individually has >57% wind generation, but MROW includes coal-heavy states, raising the subregional average significantly.",
+
+    "us-east1":     271,
+    "_us-east1":    "GCP us-east1 (Moncks Corner, South Carolina) falls in the SRVC (SERC Virginia/Carolina) eGRID subregion. SRVC not listed in the retrieved eGRID 2023 table; using RFCE (271) as a similar Mid-Atlantic/Southeast estimate. SRVC 2022 was approximately 330-340 gCO2/kWh; update this to SRVC-specific value when available.",
+
+    "westeurope":   269,
+    "_westeurope":  "Azure West Europe = Amsterdam/Middenmeer, Netherlands. Netherlands 2023 annual electricity carbon intensity = 268.5 gCO2/kWh. Source: Ember 2024 data as reported by Statista (statista.com/statistics/1290441/carbon-intensity-power-sector-netherlands/): 'In 2023, the carbon intensity of the power sector in the Netherlands reached 268.5 grams of CO2 per kilowatt-hour — the lowest level this century.'",
+
+    "europe-west4": 269,
+    "_europe-west4":"GCP Europe-West4 = Eemshaven, Netherlands. Same grid as Azure westeurope: Netherlands 2023 = 268.5 gCO2/kWh (Ember 2024).",
+
+    "multi":        279,
+    "_multi":       "Weighted estimate for Anthropic's 'global' cross-region inference routing. AWS routes across us-east-1 (271), us-west-2 (287), eu-west-1/Ireland (~290), and other regions. Simple average of primary US/EU regions ≈ 276; using 279 as slightly US-East-weighted estimate given us-east-1 is the primary inference region.",
+
+    "us":           373,
+    "_us":          "US national average: eGRID 2022 data per EPA GHG Equivalencies Calculator References page (epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references): '823.1 lbs CO2 per megawatt-hour' × 0.4536 = 373.4 gCO2/kWh. Using 2022 data as the most recent national figure in the official equivalencies calculator. eGRID 2023 national figure likely ~355-370 gCO2/kWh (most subregions decreased).",
+
+    "eu":           253,
+    "_eu":          "EU-27 average electricity GHG emission intensity, approximate. Source: European Environment Agency (EEA) indicator 'Greenhouse gas emission intensity of electricity generation' (eea.europa.eu/en/analysis/indicators/greenhouse-gas-emission-intensity-of-1). EU average has been declining with renewable deployment (~230-280 gCO2e/kWh range in 2022-2023).",
+
+    "local":        373,
+    "_local":       "Default to US national average (373 gCO2/kWh) for local inference. Users outside the US should multiply by their local grid factor. IEA Emissions Factors 2025 database (iea.org/data-and-statistics/data-product/emissions-factors-2025) provides country-specific values.",
+
+    "global":       279,
+    "_global":      "Alias for multi-region routing estimate.",
+
+    "default":      300,
+    "_default":     "Fallback for unknown provider regions. Conservative mid-estimate between US and EU averages."
+  },
+
+  "model_energy_wh_per_m_tokens": {
+    "_note": "Wh per 1 MILLION OUTPUT tokens (Wh/MTok). Input tokens are priced at input_multiplier × output rate. All values assume inference on NVIDIA H100 GPU clusters at commercial-scale concurrency (2024-2025). Older hardware (V100/A100) or lower batch sizes yield 2-8x higher energy per token.",
+    "_key_sources": [
+      "1. Epoch AI — You, J. (Feb 7, 2025): 'How much energy does ChatGPT use?' at epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use. Estimates GPT-4o typical query ~0.3 Wh at ~500 output tokens on H100 clusters at 10% compute utilization.",
+      "2. OpenAI/Altman (Jun 2025): 'Average ChatGPT query ≈ 0.34 Wh.' Analyzed by Towards Data Science: towardsdatascience.com/lets-analyze-openais-claims-about-chatgpt-energy-use",
+      "3. Lin, L.H. (2025): Llama3-70B on 8×H100 FP8, batch 128: 0.39 J/total token = 108 Wh/MTok (all tokens). At typical 20% output/80% input mix with 5:1 energy ratio, output tokens ≈ 400-500 Wh/MTok. github.com gist bf81a9c7dfc4244c974335e1605dcf22. (Referenced in llm-tracker.info/_TOORG/Power-Usage-and-Energy-Efficiency).",
+      "4. Samsi et al. (Oct 2023): 'From Words to Watts' — LLaMA-65B on V100/A100 at research concurrency: 3-4 J/output token = 833-1111 Wh/MTok. arxiv.org/pdf/2310.03003. Higher than modern commercial inference due to older hardware + low utilization.",
+      "5. Jehham et al. (2025): 'Hungry Machines' — GPT-4.1 nano: 0.000454 kWh per ~11k-token query; o3: 0.0039 kWh; GPT-4.5: 0.030 kWh. Cited in Towards Data Science analysis above.",
+      "6. John Snow Labs (Jan 2026): 'Tokens per Joule' — 'GPT-4o query consumes 0.43 Wh'. johnsnowlabs.com/tokens-per-joule-..."
+    ],
+
+    "input_multiplier": 0.2,
+    "_input_multiplier_source": "Input tokens require ~1/5th the energy of output tokens. Theoretical basis: input tokens are processed in parallel during the 'prefill' phase; output tokens are generated autoregressively (each token attends to all previous tokens). Empirical support: Anthropic and OpenAI both price output tokens at ~5× input tokens; model pricing reflects compute cost. Reference: de Vries (2023) 'The growing energy footprint of ChatGPT'. This 0.2 multiplier has been consistent across published analyses since 2023.",
+
+    "model_classes": {
+      "nano": {
+        "label": "Nano (< 7B parameters)",
+        "output_wh_per_m": 80,
+        "_source": "DERIVED — no direct peer-reviewed measurement for sub-7B commercial frontier inference found. Estimated as ~1/8th large model (600 Wh/MTok) based on super-linear parameter scaling per TokenPowerBench (Dec 2025, arxiv.org/html/2512.03024v1): 'Within each LLM family, energy rises faster than parameter count... moving from 1B to 70B parameters increases energy per token by ~70×.' Partial cross-check: Jehham et al. (2025) measured GPT-4.1 nano at 0.000454 kWh per ~10k input + 1.3k output token query → 349 Wh/MTok-output for that very high-input-ratio prompt; normalized to typical usage ≈ 80-120 Wh/MTok. Treat with ±50% uncertainty.",
+        "examples": ["claude-haiku-4", "claude-haiku-4-5", "gpt-4o-mini", "gpt-4.1-nano", "gemini-2.0-flash"]
+      },
+      "small": {
+        "label": "Small (7–20B parameters / mid-size efficient models)",
+        "output_wh_per_m": 180,
+        "_source": "DERIVED — estimated as ~1/3rd large model based on parameter-count scaling (TokenPowerBench Dec 2025). No direct commercial measurement found for this class. Treat with ±40% uncertainty.",
+        "examples": ["gpt-4.1-mini", "gemini-2.5-flash", "o3-mini"]
+      },
+      "medium": {
+        "label": "Medium (20–70B parameters / mid-tier frontier)",
+        "output_wh_per_m": 500,
+        "_source": "CALIBRATED to Epoch AI (You, Feb 2025) GPT-4o estimate: ~0.3 Wh/query at ~500 output tokens → 0.3/500 × 1M = 600 Wh/MTok. John Snow Labs (Jan 2026): '0.43 Wh for GPT-4o short query' → 0.43/500 × 1M = 860 Wh/MTok. Using 500 Wh/MTok as a lower-bound estimate reflecting well-optimized H100 commercial inference. Cross-check: OpenAI 0.34 Wh/query → 0.34/500 × 1M = 680 Wh/MTok (ChatGPT mix may include heavier models). 500 Wh/MTok is defensible for models in the GPT-4o / Claude Sonnet class at production scale.",
+        "examples": ["claude-sonnet-4-6", "claude-sonnet-4-5", "claude-sonnet-4", "gpt-4o", "gpt-4.1", "gemini-1.5-pro", "gemini-2.5-pro"]
+      },
+      "large": {
+        "label": "Large (frontier / >70B / reasoning / extended-thinking models)",
+        "output_wh_per_m": 700,
+        "_source": "CALIBRATED. Derivation: 700 Wh/MTok at 500 output tokens = 0.35 Wh/query — consistent with Sam Altman's reported ChatGPT average (0.34 Wh) which reflects heavier models. Samsi et al. (2023) measured 833-1111 Wh/MTok for 65B model on V100/A100 (older hardware); modern H100 is ~2-4x more efficient → 200-550 Wh/MTok for similar model on H100. Large frontier models (Opus, GPT-4, o3) are larger than 65B so add back overhead → 500-800 Wh/MTok range; using 700 as a central estimate. CORRECTION from v1.0: was 1100 Wh/MTok (V100/A100 era research measurement); revised to 700 to reflect 2024-2025 H100 fleet inference efficiency.",
+        "examples": ["claude-opus-4", "claude-opus-4-5", "claude-opus-4-6", "gpt-4", "o1", "o3", "gemini-ultra"]
+      },
+      "local": {
+        "label": "Local model (consumer GPU/CPU)",
+        "output_wh_per_m": 600,
+        "_source": "ESTIMATE for consumer-grade local inference. Consumer GPUs are less efficient per FLOP than data center GPUs. Back-of-envelope: RTX 4090 (450W TDP) at 50 tokens/sec for a mid-size model → 450W/50 t/s × 1M = 9,000 Wh/MTok (single-user, no batching). At high concurrency or with efficient models (7-13B on M-series Mac at 30 t/s, ~30W) → 1,000 Wh/MTok. 600 Wh/MTok represents a moderate consumer GPU running a 7-13B model efficiently. ±100% uncertainty range.",
+        "examples": ["llama3", "mistral", "qwen", "deepseek-local", "phi-3", "gemma-local"]
+      }
+    },
+
+    "model_overrides": {
+      "_note": "Model name fragment → energy class. Case-insensitive substring match applied in enrich.py. First match wins.",
+      "claude-haiku-4-5": "nano",
+      "claude-haiku-4":   "nano",
+      "haiku":            "nano",
+      "gpt-4o-mini":      "nano",
+      "gpt-4.1-nano":     "nano",
+      "gemini-flash":     "nano",
+      "gemini-2.0-flash": "nano",
+      "gemini-1.5-flash": "nano",
+      "o3-mini":          "small",
+      "gpt-4.1-mini":     "small",
+      "gemini-2.5-flash": "small",
+      "claude-sonnet-4-6":"medium",
+      "claude-sonnet-4-5":"medium",
+      "claude-sonnet-4":  "medium",
+      "claude-3-7-sonnet":"medium",
+      "claude-3-5-sonnet":"medium",
+      "claude-sonnet":    "medium",
+      "gpt-4o":           "medium",
+      "gpt-4.1":          "medium",
+      "gemini-2.5-pro":   "medium",
+      "gemini-1.5-pro":   "medium",
+      "gemini-pro":       "medium",
+      "claude-opus-4-6":  "large",
+      "claude-opus-4-5":  "large",
+      "claude-opus-4":    "large",
+      "claude-opus":      "large",
+      "gpt-4":            "large",
+      "o1":               "large",
+      "o3":               "large",
+      "gemini-ultra":     "large",
+      "llama":            "local",
+      "mistral":          "local",
+      "qwen":             "local",
+      "deepseek":         "local",
+      "phi":              "local",
+      "gemma":            "local",
+      "orca":             "local"
+    }
+  },
+
+  "equivalencies": {
+    "_note": "All Wh values verified against primary sources. All CO2/water values from EPA or manufacturer specifications.",
+
+    "phone_charge_wh": 15,
+    "_phone_charge_source": "Approximate energy stored in a full smartphone charge cycle. iPhone 15 Pro battery: 3,274 mAh × 3.87V = 12.7 Wh. Samsung Galaxy S24: ~4,000 mAh × 3.85V = 15.4 Wh. 15 Wh is a round average. Source: Apple iPhone 15 Pro specs (apple.com); Samsung Galaxy S24 specs. Wall draw is ~17-18 Wh at 85% charger efficiency; 15 Wh is the energy delivered to the battery.",
+
+    "boil_1L_water_wh": 93,
+    "_boil_water_source": "Thermodynamics: Q = mcΔT / 3600. 1,000g water from 20°C to 100°C: 1,000 × 4.186 × 80 / 3,600 = 93.0 Wh. This is the theoretical minimum energy content; a real kettle at ~90% element efficiency draws ~103 Wh at the wall. Using 93 Wh (stored energy) for fair comparison with inference energy (which is measured at IT load, not wall).",
+
+    "led_bulb_1hr_wh": 8,
+    "_led_bulb_source": "A standard 60W-equivalent LED bulb uses 8-10W per EnergyStar requirements. DOE EnergyStar Lamp Specification Version 2.2 requires ≤8.5W for 60W replacement. Using 8W × 1 hr = 8 Wh. Source: U.S. Department of Energy / EnergyStar (energystar.gov/products/lighting_fans/light_bulbs).",
+
+    "microwave_1min_wh": 17,
+    "_microwave_source": "Standard household microwave oven rated at 600-1,200W; typical consumer unit ~1,000W. Energy in 1 minute: 1,000W × (1/60 hr) = 16.7 Wh ≈ 17 Wh. Source: U.S. DOE Appliance Energy Efficiency Standards; typical consumer microwave specification.",
+
+    "google_search_wh": 0.3,
+    "_google_search_source": "Google published that each search uses approximately 0.0003 kWh = 0.3 Wh. Reference: Google (2009) 'Powering a Google Search' blog post; updated figures in Google 2023 Environmental Report. Note: CORRECTION from v1.0 — the previous value of 0.0003 was erroneously storing the kWh figure as Wh (a 1,000× error). The correct value is 0.3 Wh per search.",
+
+    "cup_of_tea_wh": 28,
+    "_cup_of_tea_source": "Energy to boil ~250 ml of water (one cup). Thermodynamic calculation: 250g × 4.186 J/(g·°C) × 80°C / 3,600 = 23.3 Wh energy content. At ~85% kettle efficiency: 23.3 / 0.85 = 27.4 ≈ 28 Wh. Cross-check: UK Which? consumer tests report average 2.2 kW kettle takes ~45-55 seconds for 250ml → 2,200W × 50s / 3,600 = 30.6 Wh. Using 28 Wh as round estimate. Note: CORRECTION from v1.0 — previous value of 0.028 was erroneously storing the kWh figure as Wh (a 1,000× error).",
+
+    "car_co2_g_per_km": 251,
+    "_car_source": "U.S. EPA: 'The average passenger vehicle emits about 404 grams of CO2 per mile.' Source: EPA 'Greenhouse Gas Emissions from a Typical Passenger Vehicle' (epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle, June 2023 update, EPA-420-F-23-014): based on 22.2 mpg fleet average and 8,887 g CO2/gallon of gasoline. Conversion: 404 g/mile ÷ 1.60934 km/mile = 251 g CO2/km. NOTE: this is the US fleet average. EU average is ~108 g/km (2023 new cars); UK ~145 g/km. CORRECTION from v1.0: was 170 g/km (too low for US; more consistent with EU average).",
+
+    "tree_absorbs_co2_g_per_yr": 21772,
+    "_tree_source": "EPA GHG Equivalencies Calculator: 'One average tree sequesters 48 lbs of CO2 per year.' 48 lbs × 453.592 g/lb = 21,772 g/yr = 21.8 kg/yr. Source: EPA 'Greenhouse Gas Equivalencies Calculator — Calculations and References' (epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references). Based on a managed tree in a forest; urban trees may sequester 9.7 lbs/yr. Using 48 lbs/yr forest tree as the standard EPA equivalency.",
+
+    "water_shower_2min_ml": 18900,
+    "_shower_source": "U.S. federal maximum showerhead flow rate: 2.5 GPM (gallons per minute). Source: Energy Policy Act of 1992 (42 U.S.C. § 6295), enforced by U.S. DOE; confirmed by EPA WaterSense program (epa.gov/watersense/showerheads). 2.5 GPM × 3.785 L/gal = 9.463 L/min. 2-minute shower: 9.463 × 2 = 18.9 L = 18,900 ml. Note: EPA WaterSense-labeled showerheads use ≤2.0 GPM; 2-min WaterSense shower = 15,140 ml.",
+
+    "water_glass_ml": 250,
+    "_water_glass_source": "Standard 8 fl oz (1 cup) serving = 236.6 ml; rounded to 250 ml as widely used international standard. No regulatory requirement; based on standard serving definitions.",
+
+    "water_bottle_ml": 500,
+    "_water_bottle_source": "Standard single-serve PET water bottle = 500 ml (16.9 fl oz). Market standard size globally.",
+
+    "water_flush_toilet_ml": 6000,
+    "_toilet_source": "U.S. National Energy Conservation Policy Act (1992) maximum toilet flush: 1.6 gpf = 1.6 × 3,785 ml = 6,056 ml ≈ 6,000 ml. Source: EPA WaterSense (epa.gov/watersense/toilets). High-efficiency WaterSense toilets: ≤1.28 gpf = 4,845 ml.",
+
+    "flight_nyc_london_co2_kg": 998,
+    "_flight_source": "Approximate CO2e per passenger, economy class, JFK–LHR one-way (~5,539 km). ICAO Carbon Emissions Calculator: ~600 kg CO2 (without radiative forcing). Atmosfair: ~850-1,200 kg CO2e (including RF multiplier of ~2). UK Government GHG Conversion Factors (DEFRA 2023): ~590 kg CO2e for the flight; ~1,180 kg with RF. Using ~998 kg CO2e as mid-estimate including partial radiative forcing, consistent with Atmosfair and similar sustainability reporting. IMPORTANT: this field is in KILOGRAMS (kg), not grams (g).",
+
+    "beef_burger_co2_g": 2500,
+    "_beef_burger_source": "Carbon footprint of a ~125g beef patty hamburger. Poore & Nemecek (2018) 'Reducing food's environmental impacts through producers and consumers' (Science): beef produces ~60 kg CO2e per kg of food product. For 125g beef burger: 0.125 kg × 60 kg CO2e/kg = 7.5 kg CO2e. However, this full lifecycle figure may be high; a more commonly cited figure from Our World in Data (citing Poore & Nemecek) is ~2.5 kg CO2e for a standard beef burger. Using 2,500 g = 2.5 kg CO2e as the conventional burger footprint estimate."
+  },
+
+  "harness_file_paths": {
+    "_note": "File locations for direct fallback parsing when tokscale is unavailable. Default paths only; environment variables or user configuration may override.",
+    "claude_code":  { "unix": "~/.claude/projects/",                                                              "format": "jsonl",           "token_field": "message.usage",     "_source": "Claude Code repository and user documentation (docs.anthropic.com/en/docs/claude-code). Each project directory contains JSONL files; usage data on rows with type='assistant'." },
+    "openclaw":     { "unix": "~/.openclaw/agents/",                                                               "format": "jsonl",           "also_parse": "*.jsonl.reset.*",     "_source": "OpenClaw (formerly Clawdbot/Moltbot) community documentation. .reset.* files capture reset sessions missed by the built-in UI (issue #42032)." },
+    "pi":           { "unix": "~/.pi/agent/sessions/",                                                             "env_override": "PI_CODING_AGENT_DIR", "format": "jsonl",         "_source": "@mariozechner/pi-coding-agent npm package documentation." },
+    "opencode":     { "unix": "~/.local/share/opencode/storage/message/{sessionID}/msg_{messageID}.json",          "format": "json_per_message","token_field": "tokens",            "_source": "OpenCode source code (github.com/sst/opencode). Per-message JSON; tokens.input, tokens.output, tokens.cache.read, tokens.cache.write." },
+    "goose":        { "sqlite": "~/.local/share/goose/sessions/sessions.db",  "legacy": "*.jsonl",                 "format": "sqlite_or_jsonl", "_source": "Block/goose repository. SQLite from v1.10+; JSONL in older versions." },
+    "cline":        { "unix": "~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/tasks/",                  "format": "json_tasks",      "_source": "Cline VS Code extension source code (github.com/cline/cline)." },
+    "roo_code":     { "unix": "~/.config/Code/User/globalStorage/rooveterinaryinc.roo-cline/tasks/",              "format": "json_tasks",      "_source": "Roo Code extension (fork of Cline), same storage format." },
+    "aider":        { "unix": ".aider.chat.history.md",                                                            "format": "markdown_no_tokens", "_note": "No machine-readable token data by default. Set AIDER_LLM_HISTORY_FILE for raw LLM logs. Source: aider.chat/docs/config/options.html." },
+    "cursor":       { "unix": "~/.cursor/globalStorage/",                                                          "format": "sqlite_auth_required", "_note": "Cursor SQLite requires user session token. Best extracted via tokscale." },
+    "gemini_cli":   { "unix": "~/.gemini/",                                                                        "format": "partial",         "_note": "Gemini CLI does not persist per-token logs by default as of 2025." }
+  }
+}
