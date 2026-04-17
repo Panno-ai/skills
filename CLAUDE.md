@@ -7,6 +7,8 @@ This is the Panno.ai agent skills repository. It contains curated Claude Code sk
 ## Repo layout
 
 ```
+.claude-plugin/
+  marketplace.json       # Claude Code plugin browser registration (update when adding skills)
 skills/                  # All skills live here
   template/              # Starter template for new skills
     SKILL.md
@@ -74,6 +76,23 @@ cp -r skills/your-skill-name ~/.claude/skills/
 Start a new Claude Code session and use a trigger phrase from the skill's description. Claude will load the skill automatically.
 
 To verify the skill is loaded, ask: "What skills do you have installed?"
+
+---
+
+## Distribution
+
+### npx skills (Vercel CLI)
+
+`npx skills` discovers skills automatically by finding `SKILL.md` files in the `skills/` directory — no additional config needed. Users can install all skills or a single one:
+
+```bash
+npx skills add panno-ai/skills                              # all skills
+npx skills add panno-ai/skills --skill llm-resource-usage   # one skill
+```
+
+### Claude Code plugin browser
+
+`.claude-plugin/marketplace.json` registers skills with Claude Code's built-in plugin browser. **Update this file whenever you add or remove a skill** — add a new entry to the `plugins` array matching the skill's folder name, description, and `source` path. Set `"strict": false` since skills don't have a `plugin.json`.
 
 ---
 

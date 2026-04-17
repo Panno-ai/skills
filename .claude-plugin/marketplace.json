@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "panno-ai-skills",
+  "description": "Curated Claude Code agent skills by Panno.ai",
+  "owner": {
+    "name": "Panno.ai"
+  },
+  "plugins": [
+    {
+      "name": "llm-resource-usage",
+      "description": "Analyze your LLM/AI usage across all local coding agents and generate an environmental impact infographic and narrative report.",
+      "category": "productivity",
+      "source": "./skills/llm-resource-usage",
+      "strict": false,
+      "homepage": "https://github.com/panno-ai/skills/tree/main/skills/llm-resource-usage"
+    }
+  ]
+}
