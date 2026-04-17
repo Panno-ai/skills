@@ -1,0 +1,49 @@
+# Panno.ai Skills
+
+> Curated Claude Code agent skills by Panno.ai. Each skill is a self-contained
+> folder with a SKILL.md and optional scripts, references, and assets.
+
+## Repository
+
+- GitHub: https://github.com/panno-ai/skills
+- License: MIT
+- Install all skills: npx skills add panno-ai/skills
+- Install one skill:  npx skills add panno-ai/skills --skill <name>
+
+## Skills
+
+### llm-resource-usage
+
+Analyzes LLM/AI token usage across local coding agents (Claude Code, OpenClaw,
+Codex CLI, Gemini CLI, Cursor, Goose, Amp, etc.), enriches it with environmental
+impact data (energy, CO₂, water, datacenter location), and produces a visual
+HTML infographic and narrative report.
+
+- Path: skills/llm-resource-usage/
+- SKILL.md: skills/llm-resource-usage/SKILL.md
+- Requires: Python 3.8+, optional tokscale CLI
+- Tags: analytics, llm-usage, environment, carbon, reporting, tokens, cost
+- Homepage: https://github.com/panno-ai/skills/tree/main/skills/llm-resource-usage
+
+## Skill Format
+
+Each skill follows the agentskills.io open standard:
+
+- SKILL.md — YAML frontmatter (name, description, license, compatibility, metadata) + markdown instructions
+- scripts/  — executable Python/Node scripts invoked by the skill
+- references/ — static JSON/data loaded into context on demand
+- assets/    — files used in output (not committed)
+
+## Adding a Skill
+
+1. Copy skills/template/ to skills/<your-skill-name>/
+2. Fill in SKILL.md frontmatter and write instructions
+3. Add scripts to scripts/, static data to references/
+4. Open a PR against main
+
+## Optional Metadata Fields (agentskills.io spec)
+
+- license        — short license name
+- compatibility  — environment requirements
+- metadata.author, metadata.version, metadata.tags, metadata.homepage
+- metadata.openclaw.requires.bins — for ClawHub compatibility
