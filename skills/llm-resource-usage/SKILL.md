@@ -11,6 +11,19 @@ description: >
   many tokens have I used", AI environmental impact, "what's my AI bill", or
   wants to see charts/visuals of their LLM activity. Also trigger when they ask
   to "track", "analyze", "visualize", or "report" on AI or token usage.
+license: MIT
+compatibility: >
+  Requires Python 3.8+. Works with Claude Code, OpenClaw, OpenCode, Goose,
+  Codex CLI, Gemini CLI, Cursor, and Amp. Optional: install tokscale
+  (cargo install tokscale) for broader harness coverage.
+metadata:
+  author: panno-ai
+  version: 1.0.0
+  homepage: https://github.com/panno-ai/skills/tree/main/skills/llm-resource-usage
+  tags: analytics llm-usage environment carbon reporting infographic tokens cost
+  openclaw.requires.bins: python3
+  openclaw.emoji: "📊"
+  openclaw.homepage: https://github.com/panno-ai/skills/tree/main/skills/llm-resource-usage
 ---
 
 # LLM Resource Usage
